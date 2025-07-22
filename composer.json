@@ -1,0 +1,73 @@
+{
+    "name": "mistyfiky/shopware-plugin-skeleton",
+    "description": "Mistyfiky's Shopware plugin skeleton",
+    "type": "shopware-platform-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "mistyfiky"
+        }
+    ],
+    "require": {
+        "shopware/core": "~6.7.0"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.84",
+        "phpstan/phpstan": "^2.1",
+        "phpunit/phpunit": "^11.5",
+        "shopware/platform": "*"
+    },
+    "extra": {
+        "shopware-plugin-class": "Misty\\Plugin\\MistyPlugin",
+        "label": {
+            "en-GB": "Misty Plugin"
+        },
+        "description": {
+            "en-GB": "Misty Plugin"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Misty\\Plugin\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Misty\\Plugin\\Test\\": "tests/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "symfony/runtime": true
+        }
+    },
+    "scripts": {
+        "post-root-package-install": [
+            "@php post-root-package-install.php"
+        ],
+        "post-create-project-cmd": [
+            "@post-install-cmd"
+        ],
+        "post-install-cmd": [
+            "@platform:init"
+        ],
+        "pre-commit": [
+            "@cs:check",
+            "@phpstan",
+            "@phpunit"
+        ],
+        "cs:check": "@php php-cs-fixer check --verbose --diff",
+        "cs:fix": "@php php-cs-fixer fix",
+        "phpstan": "@php phpstan analyse",
+        "platform:version": "@php -r \"require 'vendor/autoload.php'; echo \\Composer\\InstalledVersions::getVersion('shopware/platform');\"",
+        "platform:init": [
+            "COMPOSER_ROOT_VERSION=$(composer platform:version) composer -d vendor/shopware/platform install",
+            "ln -sfT ../../../../.. vendor/shopware/platform/custom/plugins/MistyPlugin"
+        ],
+        "testdb:init": [
+            "@putenv FORCE_INSTALL=true",
+            "@phpunit --group none"
+        ],
+        "phpunit": "@php phpunit"
+    }
+}

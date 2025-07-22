@@ -1,0 +1,10 @@
+/src/Resources/app/*/test/ export-ignore
+/tests/ export-ignore
+/.editorconfig export-ignore
+/.gitattributes export-ignore
+/.gitignore export-ignore
+/.php-cs-fixer.dist.php export-ignore
+/compose.yaml export-ignore
+/phpstan.dist.neon export-ignore
+/phpunit.xml.dist export-ignore
+/README.md export-ignore

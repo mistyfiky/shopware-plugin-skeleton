@@ -1,0 +1,2 @@
+include:
+  - vendor/shopware/platform/compose.yaml

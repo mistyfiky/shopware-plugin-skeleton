@@ -1,0 +1,27 @@
+{
+  "name": "misty-plugin-storefront",
+  "version": "1.0.0",
+  "scripts": {
+    "eslint": "eslint --report-unused-disable-directives ./src ./test --cache",
+    "eslint:fix": "npm run eslint -- --fix",
+    "jest": "jest --config jest.config.js --ci",
+    "jest:watch": "jest --config jest.config.js --watch",
+    "stylelint": "stylelint ./src/scss --cache",
+    "stylelint:fix": "npm run stylelint -- --fix"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.28.0",
+    "@babel/preset-env": "^7.28.0",
+    "@eslint/js": "^9.32.0",
+    "babel-jest": "^30.0.5",
+    "eslint": "^9.32.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-jest": "^29.0.1",
+    "eslint-plugin-prettier": "^5.5.3",
+    "jest": "^30.0.5",
+    "jest-environment-jsdom": "^30.0.5",
+    "prettier": "^3.6.2",
+    "stylelint-prettier": "^5.0.3"
+  },
+  "private": true
+}

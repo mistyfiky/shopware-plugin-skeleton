@@ -1,0 +1,6 @@
+/.jestcache/
+/coverage/
+/dist/
+/node_modules/
+/.eslintcache
+/.stylelintcache

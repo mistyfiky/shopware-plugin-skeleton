@@ -9,7 +9,8 @@
         }
     ],
     "require": {
-        "shopware/core": "~6.7.0"
+        "shopware/core": "~6.7.0",
+        "shopware/storefront": "~6.7.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.84",
@@ -46,27 +47,89 @@
     },
     "scripts": {
         "post-root-package-install": [
-            "@php post-root-package-install.php"
+            "@php post-root-package-install.php",
+            "@npm:storefront install --package-lock-only"
         ],
-        "post-install-cmd": [
-            "@platform:init"
+        "post-create-project-cmd": [
+            "@composer update --lock"
         ],
-        "post-update-cmd": [
-            "@platform:init"
+        "checks": [
+            "@stylelint:check",
+            "@eslint:check",
+            "@ecs:check",
+            "@phpstan:analyse",
+            "@jest:run",
+            "@phpunit:run"
         ],
-        "pre-commit": [
-            "@cs:check",
-            "@phpstan",
-            "@phpunit"
+        "console": "cd vendor/shopware/platform; bin/console",
+        "ecs:check": "php-cs-fixer check --verbose --diff",
+        "ecs:fix": "php-cs-fixer fix",
+        "eslint:check": [
+            "@eslint:check:storefront"
         ],
-        "cs:check": "@php php-cs-fixer check --verbose --diff",
-        "cs:fix": "@php php-cs-fixer fix",
-        "phpstan": "@php phpstan analyse",
-        "phpunit": "@php phpunit",
-        "platform": "composer -d vendor/shopware/platform @additional_args",
-        "platform:init": [
-            "@platform install",
-            "ln -sfT ../../../../.. vendor/shopware/platform/custom/plugins/\"$(basename \"$(pwd)\")\""
+        "eslint:check:storefront": "@npm:storefront run eslint",
+        "eslint:fix": [
+            "@eslint:fix:storefront"
+        ],
+        "eslint:fix:storefront": "@npm:storefront run eslint:fix",
+        "init:db": [
+            "@platform init:db",
+            "@console plugin:refresh",
+            "@console plugin:install --activate MistyPlugin"
+        ],
+        "init:js": [
+            "@npm:storefront install",
+            "@platform init:js"
+        ],
+        "init:platform": [
+            "cd vendor/shopware/platform && mkdir -p custom/plugins",
+            "ln -sfT ../../../../.. vendor/shopware/platform/custom/plugins/MistyPlugin",
+            "@platform install"
+        ],
+        "init:testdb": [
+            "@platform init:testdb"
+        ],
+        "jest:run": [
+            "@jest:run:storefront"
+        ],
+        "jest:run:storefront": [
+            "@npm:storefront run jest"
+        ],
+        "jest:watch:storefront": [
+            "Composer\\Config::disableProcessTimeout",
+            "@npm:storefront run jest:watch"
+        ],
+        "npm:storefront": "npm -C src/Resources/app/storefront",
+        "phpstan:analyse": "phpstan analyse",
+        "phpunit:run": "phpunit",
+        "platform": "composer -d vendor/shopware/platform",
+        "stylelint:check": [
+            "@stylelint:check:storefront"
+        ],
+        "stylelint:check:storefront": "@npm:storefront run stylelint",
+        "stylelint:fix": [
+            "@stylelint:fix:storefront"
+        ],
+        "stylelint:fix:storefront": "@npm:storefront run stylelint:fix"
+    },
+    "scripts-aliases": {
+        "ecs:check": [
+            "ecs"
+        ],
+        "eslint:check": [
+            "eslint"
+        ],
+        "jest:run": [
+            "jest"
+        ],
+        "phpstan:analyse": [
+            "phpstan"
+        ],
+        "phpunit:run": [
+            "phpunit"
+        ],
+        "stylelint:check": [
+            "stylelint"
         ]
     }
 }

@@ -1,4 +1,4 @@
-/vendor
+/vendor/
 /.envrc
 /.node-version
 /.php-cs-fixer.cache

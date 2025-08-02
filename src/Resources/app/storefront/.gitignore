@@ -1,0 +1,5 @@
+/.jestcache/
+/dist/
+/node_modules/
+/.eslintcache
+/.stylelintcache

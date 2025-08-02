@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PhpIncludePathManager">
+    <exclude_path>
+      <path value="$PROJECT_DIR$/vendor/shopware/platform/custom/plugins" />
+      <path value="$PROJECT_DIR$/vendor/shopware/platform/public" />
+      <path value="$PROJECT_DIR$/vendor/shopware/platform/files" />
+      <path value="$PROJECT_DIR$/vendor/shopware/platform/tests" />
+      <path value="$PROJECT_DIR$/vendor/shopware/platform/var" />
+      <path value="$PROJECT_DIR$/vendor/shopware/platform/vendor" />
+      <path value="$PROJECT_DIR$/vendor/shopware/platform/vendor-bin" />
+    </exclude_path>
+  </component>
+</project>

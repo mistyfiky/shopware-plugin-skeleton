@@ -1,0 +1,72 @@
+{
+    "name": "mistyfiky/shopware-plugin-skeleton",
+    "description": "Mistyfiky's Shopware plugin skeleton",
+    "type": "shopware-platform-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "mistyfiky"
+        }
+    ],
+    "require": {
+        "shopware/core": "~6.7.0"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.84",
+        "phpstan/phpstan": "^2.1",
+        "phpunit/phpunit": "^11.5",
+        "shopware/platform": "*"
+    },
+    "extra": {
+        "shopware-plugin-class": "Misty\\Plugin\\MistyPlugin",
+        "label": {
+            "en-GB": "Misty Plugin"
+        },
+        "description": {
+            "en-GB": "Misty Plugin"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Misty\\Plugin\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Misty\\Plugin\\Test\\": "tests/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "symfony/runtime": true
+        },
+        "preferred-install": {
+            "shopware/platform": "source"
+        }
+    },
+    "scripts": {
+        "post-root-package-install": [
+            "@php post-root-package-install.php"
+        ],
+        "post-install-cmd": [
+            "@platform:init"
+        ],
+        "post-update-cmd": [
+            "@platform:init"
+        ],
+        "pre-commit": [
+            "@cs:check",
+            "@phpstan",
+            "@phpunit"
+        ],
+        "cs:check": "@php php-cs-fixer check --verbose --diff",
+        "cs:fix": "@php php-cs-fixer fix",
+        "phpstan": "@php phpstan analyse",
+        "phpunit": "@php phpunit",
+        "platform": "composer -d vendor/shopware/platform @additional_args",
+        "platform:init": [
+            "@platform install",
+            "ln -sfT ../../../../.. vendor/shopware/platform/custom/plugins/\"$(basename \"$(pwd)\")\""
+        ]
+    }
+}

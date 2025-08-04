@@ -48,6 +48,7 @@
     "scripts": {
         "post-root-package-install": [
             "@php post-root-package-install.php",
+            "@npm:administration install --package-lock-only",
             "@npm:storefront install --package-lock-only"
         ],
         "post-create-project-cmd": [
@@ -65,12 +66,16 @@
         "ecs:check": "php-cs-fixer check --verbose --diff",
         "ecs:fix": "php-cs-fixer fix",
         "eslint:check": [
+            "@eslint:check:administration",
             "@eslint:check:storefront"
         ],
+        "eslint:check:administration": "@npm:administration run eslint",
         "eslint:check:storefront": "@npm:storefront run eslint",
         "eslint:fix": [
+            "@eslint:fix:administration",
             "@eslint:fix:storefront"
         ],
+        "eslint:fix:administration": "@npm:administration run eslint:fix",
         "eslint:fix:storefront": "@npm:storefront run eslint:fix",
         "init:db": [
             "@platform init:db",
@@ -78,6 +83,7 @@
             "@console plugin:install --activate MistyPlugin"
         ],
         "init:js": [
+            "@npm:administration install",
             "@npm:storefront install",
             "@platform init:js"
         ],
@@ -90,26 +96,39 @@
             "@platform init:testdb"
         ],
         "jest:run": [
+            "@jest:run:administration",
             "@jest:run:storefront"
+        ],
+        "jest:run:administration": [
+            "@npm:administration run jest"
         ],
         "jest:run:storefront": [
             "@npm:storefront run jest"
+        ],
+        "jest:watch:administration": [
+            "Composer\\Config::disableProcessTimeout",
+            "@npm:administration run jest:watch"
         ],
         "jest:watch:storefront": [
             "Composer\\Config::disableProcessTimeout",
             "@npm:storefront run jest:watch"
         ],
+        "npm:administration": "npm -C src/Resources/app/administration",
         "npm:storefront": "npm -C src/Resources/app/storefront",
         "phpstan:analyse": "phpstan analyse",
         "phpunit:run": "phpunit",
         "platform": "composer -d vendor/shopware/platform",
         "stylelint:check": [
+            "@stylelint:check:administration",
             "@stylelint:check:storefront"
         ],
+        "stylelint:check:administration": "@npm:administration run stylelint",
         "stylelint:check:storefront": "@npm:storefront run stylelint",
         "stylelint:fix": [
+            "@stylelint:fix:administration",
             "@stylelint:fix:storefront"
         ],
+        "stylelint:fix:administration": "@npm:administration run stylelint:fix",
         "stylelint:fix:storefront": "@npm:storefront run stylelint:fix"
     },
     "scripts-aliases": {

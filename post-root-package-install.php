@@ -38,11 +38,19 @@ rename('README.dist.md', 'README.md');
 
 rename('.gitattributes.dist', '.gitattributes');
 
+rename('src/Resources/app/administration/.gitattributes.dist', 'src/Resources/app/administration/.gitattributes');
+
+file_replace('src/Resources/app/administration/package.json', [
+    '"name": "misty-plugin-administration"' => sprintf('"name": "%s-administration"', camel2dashed($pluginFullName)),
+]);
+
 rename('src/Resources/app/storefront/.gitattributes.dist', 'src/Resources/app/storefront/.gitattributes');
 
 file_replace('src/Resources/app/storefront/package.json', [
     '"name": "misty-plugin-storefront"' => sprintf('"name": "%s-storefront"', camel2dashed($pluginFullName)),
 ]);
+
+rename('src/Resources/public/.gitattributes.dist', 'src/Resources/public/.gitattributes');
 
 file_replace('src/MistyPlugin.php', [
     'namespace Misty\\Plugin' => sprintf('namespace %s', $namespace),
